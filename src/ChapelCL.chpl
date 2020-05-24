@@ -1,6 +1,15 @@
 /* Documentation for ChapelCL */
 module ChapelCL {
   use SysCTypes;
+  extern {
+    #ifdef __APPLE__
+    #include <OpenCL/cl.h>
+    #else
+    #include <CL/cl.h>
+    #endif
+
+  }
+  require "OpenCL/cl.h";
 
   const CL_SUCCESS : c_int = 0;
   const CL_DEVICE_NOT_FOUND : c_int = -1;
@@ -195,4 +204,184 @@ module ChapelCL {
   const CL_QUEUE_REFERENCE_COUNT : c_int = 0x1092;
   const CL_QUEUE_PROPERTIES : c_int = 0x1093;
 
+  const CL_MEM_READ_WRITE : c_long = 0b0000000001;
+  const CL_MEM_WRITE_ONLY : c_long = 0b0000000010;
+  const CL_MEM_READ_ONLY : c_long = 0b0000000100;
+  const CL_MEM_USE_HOST_PTR : c_long = 0b0000001000;
+  const CL_MEM_ALLOC_HOST_PTR : c_long = 0b0000010000;
+  const CL_MEM_COPY_HOST_PTR : c_long = 0b0000100000;
+  //  0b0001000000 is reserved
+  const CL_MEM_HOST_WRITE_ONLY : c_long = 0b0010000000;
+  const CL_MEM_HOST_READ_ONLY : c_long = 0b0100000000;
+  const CL_MEM_HOST_NO_ACCESS : c_long = 0b1000000000;
+
+  const CL_BUFFER_CREATE_TYPE_REGION : c_int = 0x1220;  
+
+  const CL_R : c_int = 0x10B0;
+  const CL_A : c_int = 0x10B1;
+  const CL_RG : c_int = 0x10B2;
+  const CL_RA : c_int = 0x10B3;
+  const CL_RGB : c_int = 0x10B4;
+  const CL_RGBA : c_int = 0x10B5;
+  const CL_BGRA : c_int = 0x10B6;
+  const CL_ARGB : c_int = 0x10B7;
+  const CL_INTENSITY : c_int = 0x10B8;
+  const CL_LUMINANCE : c_int = 0x10B9;
+  const CL_Rx : c_int = 0x10BA;
+  const CL_RGx : c_int = 0x10BB;
+  const CL_RGBx : c_int = 0x10BC;
+  const CL_DEPTH : c_int = 0x10BD;
+  const CL_DEPTH_STENCIL : c_int = 0x10BE;
+
+  const CL_SNORM_INT8 : c_int = 0x10D0;
+  const CL_SNORM_INT16 : c_int = 0x10D1;
+  const CL_UNORM_INT8 : c_int = 0x10D2;
+  const CL_UNORM_INT16 : c_int = 0x10D3;
+  const CL_UNORM_SHORT_565 : c_int = 0x10D4;
+  const CL_UNORM_SHORT_555 : c_int = 0x10D5;
+  const CL_UNORM_INT_101010 : c_int = 0x10D6;
+  const CL_SIGNED_INT8 : c_int = 0x10D7;
+  const CL_SIGNED_INT16 : c_int = 0x10D8;
+  const CL_SIGNED_INT32 : c_int = 0x10D9;
+  const CL_UNSIGNED_INT8 : c_int = 0x10DA;
+  const CL_UNSIGNED_INT16 : c_int = 0x10DB;
+  const CL_UNSIGNED_INT32 : c_int = 0x10DC;
+  const CL_HALF_FLOAT : c_int = 0x10DD;
+  const CL_FLOAT : c_int = 0x10DE;
+  const CL_UNORM_INT24 : c_int = 0x10DF;
+
+  const CL_MEM_OBJECT_BUFFER : c_int = 0x10F0;
+  const CL_MEM_OBJECT_IMAGE2D : c_int = 0x10F1;
+  const CL_MEM_OBJECT_IMAGE3D : c_int = 0x10F2;
+  const CL_MEM_OBJECT_IMAGE2D_ARRAY : c_int = 0x10F3;
+  const CL_MEM_OBJECT_IMAGE1D : c_int = 0x10F4;
+  const CL_MEM_OBJECT_IMAGE1D_ARRAY : c_int = 0x10F5;
+  const CL_MEM_OBJECT_IMAGE1D_BUFFER : c_int = 0x10F6;
+
+  const CL_MEM_TYPE : c_int = 0x1100;
+  const CL_MEM_FLAGS : c_int = 0x1101;
+  const CL_MEM_SIZE : c_int = 0x1102;
+  const CL_MEM_HOST_PTR : c_int = 0x1103;
+  const CL_MEM_MAP_COUNT : c_int = 0x1104;
+  const CL_MEM_REFERENCE_COUNT : c_int = 0x1105;
+  const CL_MEM_CONTEXT : c_int = 0x1106;
+  const CL_MEM_ASSOCIATED_MEMOBJECT : c_int = 0x1107;
+  const CL_MEM_OFFSET : c_int = 0x1108;
+
+  const CL_IMAGE_INFO_FORMAT : c_int = 0x1110;
+  const CL_IMAGE_INFO_ELEMENT_SIZE : c_int = 0x1111;
+  const CL_IMAGE_INFO_ROW_PITCH : c_int = 0x1112;
+  const CL_IMAGE_INFO_SLICE_PITCH : c_int = 0x1113;
+  const CL_IMAGE_INFO_WIDTH : c_int = 0x1114;
+  const CL_IMAGE_INFO_HEIGHT : c_int = 0x1115;
+  const CL_IMAGE_INFO_DEPTH : c_int = 0x1116;
+  const CL_IMAGE_INFO_ARRAY_SIZE : c_int = 0x1117;
+  const CL_IMAGE_INFO_BUFFER : c_int = 0x1118;
+  const CL_IMAGE_INFO_NUM_MIP_LEVELS : c_int = 0x1119;
+  const CL_IMAGE_INFO_NUM_SAMPLES : c_int = 0x111A;
+
+  const CL_ADDRESS_NONE : c_int = 0x1130;
+  const CL_ADDRESS_CLAMP_TO_EDGE : c_int = 0x1131;
+  const CL_ADDRESS_CLAMP : c_int = 0x1132;
+  const CL_ADDRESS_REPEAT : c_int = 0x1133;
+  const CL_ADDRESS_MIRRORED_REPEAT : c_int = 0x1134;
+
+  const CL_FILTER_NEAREST : c_int = 0x1140;
+  const CL_FILTER_LINEAR : c_int = 0x1141;
+
+  const CL_SAMPLER_REFERENCE_COUNT : c_int = 0x1150;
+  const CL_SAMPLER_CONTEXT : c_int = 0x1151;
+  const CL_SAMPLER_NORMALIZED_COORDS : c_int = 0x1152;
+  const CL_SAMPLER_ADDRESSING_MODE : c_int = 0x1153;
+  const CL_SAMPLER_FILTER_MODE : c_int = 0x1154;
+
+  const CL_PROGRAM_REFERENCE_COUNT : c_int = 0x1160;
+  const CL_PROGRAM_CONTEXT : c_int = 0x1161;
+  const CL_PROGRAM_NUM_DEVICES : c_int = 0x1162;
+  const CL_PROGRAM_DEVICES : c_int = 0x1163;
+  const CL_PROGRAM_SOURCE : c_int = 0x1164;
+  const CL_PROGRAM_BINARY_SIZES : c_int = 0x1165;
+  const CL_PROGRAM_BINARIES : c_int = 0x1166;
+  const CL_PROGRAM_NUM_KERNELS : c_int = 0x1167;
+  const CL_PROGRAM_KERNEL_NAMES : c_int = 0x1168;
+
+  const CL_PROGRAM_BUILD_STATUS : c_int = 0x1181;
+  const CL_PROGRAM_BUILD_OPTIONS : c_int = 0x1182;
+  const CL_PROGRAM_BUILD_LOG : c_int = 0x1183;
+  const CL_PROGRAM_BINARY_TYPE : c_int = 0x1184;
+
+  const CL_PROGRAM_BINARY_TYPE_NONE : c_int = 0x0;
+  const CL_PROGRAM_BINARY_TYPE_COMPILED_OBJECT : c_int = 0x1;
+  const CL_PROGRAM_BINARY_TYPE_LIBRARY : c_int = 0x2;
+  const CL_PROGRAM_BINARY_TYPE_EXECUTABLE : c_int = 0x4;
+
+  const CL_BUILD_SUCCESS : c_int = 0;
+  const CL_BUILD_NONE : c_int = -1;
+  const CL_BUILD_ERROR : c_int = -2;
+  const CL_BUILD_IN_PROGRESS : c_int = -3;
+
+  const CL_KERNEL_FUNCTION_NAME : c_int = 0x1190;
+  const CL_KERNEL_NUM_ARGS : c_int = 0x1191;
+  const CL_KERNEL_REFERENCE_COUNT : c_int = 0x1192;
+  const CL_KERNEL_CONTEXT : c_int = 0x1193;
+  const CL_KERNEL_PROGRAM : c_int = 0x1194;
+  const CL_KERNEL_ATTRIBUTES : c_int = 0x1195;
+
+  const CL_KERNEL_ARG_ADDRESS_QUALIFIER : c_int = 0x1196;
+  const CL_KERNEL_ARG_ACCESS_QUALIFIER : c_int = 0x1197;
+  const CL_KERNEL_ARG_TYPE_NAME : c_int = 0x1198;
+  const CL_KERNEL_ARG_TYPE_QUALIFIER : c_int = 0x1199;
+  const CL_KERNEL_ARG_NAME : c_int = 0x119A;
+
+  const CL_KERNEL_ARG_ADDRESS_GLOBAL : c_int = 0x119B;
+  const CL_KERNEL_ARG_ADDRESS_LOCAL : c_int = 0x119C;
+  const CL_KERNEL_ARG_ADDRESS_CONSTANT : c_int = 0x119D;
+  const CL_KERNEL_ARG_ADDRESS_PRIVATE : c_int = 0x119E;
+
+  const CL_KERNEL_ARG_ACCESS_READ_ONLY : c_int = 0x11A0;
+  const CL_KERNEL_ARG_ACCESS_WRITE_ONLY : c_int = 0x11A1;
+  const CL_KERNEL_ARG_ACCESS_READ_WRITE : c_int = 0x11A2;
+  const CL_KERNEL_ARG_ACCESS_NONE : c_int = 0x11A3;
+
+  const CL_KERNEL_ARG_TYPE_NONE : c_int = 0b000;
+  const CL_KERNEL_ARG_TYPE_CONST : c_int = 0b001;
+  const CL_KERNEL_ARG_TYPE_RESTRICT : c_int = 0b010;
+  const CL_KERNEL_ARG_TYPE_VOLATILE : c_int = 0b100;
+
+  const CL_KERNEL_WORK_GROUP_SIZE : c_int = 0x11B0;
+  const CL_KERNEL_COMPILE_WORK_GROUP_SIZE : c_int = 0x11B1;
+  const CL_KERNEL_LOCAL_MEM_SIZE : c_int = 0x11B2;
+  const CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE : c_int = 0x11B3;
+  const CL_KERNEL_PRIVATE_MEM_SIZE : c_int = 0x11B4;
+  const CL_KERNEL_GLOBAL_WORK_SIZE : c_int = 0x11B5;
+
+  const CL_EVENT_COMMAND_QUEUE : c_int = 0x11D0;
+  const CL_EVENT_COMMAND_TYPE : c_int = 0x11D1;
+  const CL_EVENT_REFERENCE_COUNT : c_int = 0x11D2;
+  const CL_EVENT_COMMAND_EXECUTION_STATUS : c_int = 0x11D3;
+  const CL_EVENT_CONTEXT : c_int = 0x11D4;
+
+  const CL_PROFILING_COMMAND_QUEUED : c_int = 0x1280;
+  const CL_PROFILING_COMMAND_SUBMIT : c_int = 0x1281;
+  const CL_PROFILING_COMMAND_START : c_int = 0x1282;
+  const CL_PROFILING_COMMAND_END : c_int = 0x1283;
+
+  record cl_image_format{
+    var image_channel_order : c_int;
+    var image_channel_data_type : c_int;
+  }
+
+  record cl_image_desc{
+    var image_type : c_int;
+    var image_width : c_int;
+    var image_height : c_int;
+    var image_depth : c_int;
+    var image_array_size : c_int;
+    var image_row_pitch : c_ulong;
+    var image_slice_pitch : c_ulong;
+    var num_mip_levels : c_int;
+    var num_samples : c_int;
+    var buffer : c_ptr(c_int);
+  }
+  
 }
