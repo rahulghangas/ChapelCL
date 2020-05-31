@@ -1,6 +1,13 @@
 [brick]
 name = "ChapelCL"
 version = "0.1.0"
-chplVersion = "1.23.0"
+chplVersion = "1.20.0"
 
 [dependencies]
+
+[examples]
+examples = ["openCLDeviceQuery.chpl"]
+
+[examples.openCLDeviceQuery]
+compopts = "--ldflags -Wl,-framework,OpenCL"
+
